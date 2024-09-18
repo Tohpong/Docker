@@ -1,0 +1,35 @@
+docker -v //check version docker
+docker ps//ตรวจสอบสถานะการทำงาน
+docker run hello-world //docker run
+docker ps --all //ดูว่า docker มีอะไรบ้าง
+docker run busybox echo 'hello world in docker!' //busybox = ชื่อimages
+docker run busybox ls //คำสั่งที่ใช้list ในตัวของlinux
+docker run busybox ping google.com //ให้ busybox ping ไปที่google
+
+docker stop ID/ชื่อ // ให้docker หยุดการทำงาน ตามด้วยชื่อ
+docker rm ID //ให้ docker ลบ
+docker pull busybox //  ดึง
+docker system prune //**คำสั่งอันตราย ไม่ควรใช้**
+
+docker exec -it 7f07b2bb94da bash //เข้าไปใน nginx
+
+//คำถามที่โดนสัมภาษณ์งาน?
+MYSQL default port 3306
+Web default port 80
+http default port 80
+https default port 443
+
+docker run -p 80:80 nginx //หน้า
+docker run -p 9000:80 nginx 
+docker run -d -p 4000:80 nginx //ให้รันแล้วออกมาเลย
+docker run --name mynginx -d -p 3000:80 nginx //ตั้งชื่อให้สอดคล้องกับที่ใช้
+ 
+http://localhost:9000/ //ใช้ตรวจสอบเว็บ browser ของ nginx
+docker logs 274b8c9b74a35f00178d0f91e4b795595c6483eabaf22810c36b3cde7e9ce1d2
+docker logs -f 274b8c9b74a35f00178d0f91e4b795595c6483eabaf22810c36b3cde7e9ce1d2
+
+docker system info
+docker system df 
+docker images //check images
+docker image inspect nginx
+docker image rm hello-world //ลบรูป hello-world
