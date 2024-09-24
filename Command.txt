@@ -33,3 +33,53 @@ docker system df
 docker images //check images
 docker image inspect nginx
 docker image rm hello-world //ลบรูป hello-world
+
+โหลด images
+docker pull wordpress
+docker pull mysql:5.7
+docker pull phpmyadmin/phpmyadmin
+
+**Create Network**
+
+docker network create wordpress
+docker network ls
+docker network rm wordpress
+
+docker run --name mysql --network wordpress -e//กำหนดvaliable MYSQL_DATABASE=wordpress_db -e MY
+1. docker run --name mysql --network wordpress -e MYSQL_ROOT_PASSWORD=1111 -e  MYSQL_DATABASE=wordpress_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+2. docker run --name pma --network wordpress -p 8888:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+3. docker run -d  --name wordpress --network wordpress -p 888:80 -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress_db wordpress
+
+เก็บข้อมูลแบบ1
+docker ps
+docker exec -it pma sh
+docker exec -it pma bash //ls //pwd
+apt-get update
+apt-get install vim
+vi a.text กด i พิมพ์ข้อมูล กด esc กดออก พิมพ์ :wq กด enter save
+
+เก็บข้อมูลแบบ2 แบบvolume
+docker volume ls
+docker volume create wp_volume
+docker volume create mysql_volume
+docker volume rm wp_volume mysql_volume
+
+docker container inspect wordpress
+ที่อยู่volume /var/lib/mysql
+
+สร้างเอง
+docker volume create mysql_volume
+docker volume rm wp_volume mysql_volume
+docker network create wordpress02
+docker network ls
+docker volume ls
+
+mysql username : Boxygen
+mysql password : Al$0Pgx7Qmix))XnHL
+
+4PsG(T5NVQL!QnwM)r
+vCWulpB8OAKZvqv*I#
+
+docker run -d --name mysql02 --network wordpress02 -v mysql_volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress02_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+docker run -d --name wordpress02  --network wordpress02 -v wp_volume:/var/www/html -e WORDPRESS_DB_HOST=mysql02 -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress02_db -p 889:80 wordpress
+docker run --name pma02 --network wordpress02 -p 8889:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
