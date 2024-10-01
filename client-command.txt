@@ -1,0 +1,48 @@
+kubectl get all //โชว์clusterIP
+
+kubectl logs client-pods //logs 
+
+ไฟล์client-deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      name: client-pods
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client
+        image: imsuriyapi/todo-app:v4
+
+kubectl apply -f client-deployment.yml //applyไฟล์
+
+kubectl delete pods ชื่อpods //delete pods(podตาย)
+
+kubectl delete deployments client-deployment //ลบdeployment ข้อมูลpodทั้งหมดจะหาย
+
+กำหนดpod
+
+ไฟล์ client-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-service
+spec:
+  type: NodePort
+  selector:
+    app: client
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30001 //portใช้ได้ตั้งแต่ 30000-32767
+
+kubectl apply -f .   //apply run ไฟล์ทั้ง2
+เสร็จแล้วเปิดเว็บแล้วเขียน localhost:30001 //localhost:portที่เรากำหนดไว้
